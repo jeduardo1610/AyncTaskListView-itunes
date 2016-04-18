@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.m14x.aynctasklistview_itunes.MainActivity;
 import com.example.m14x.aynctasklistview_itunes.Model.Pojo;
 import com.example.m14x.aynctasklistview_itunes.R;
 
@@ -19,6 +20,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by m14x on 04/14/2016.
@@ -26,11 +28,11 @@ import java.util.ArrayList;
 public class DownloadTask extends AsyncTask<URL,Void,String> {
 
     private ArrayList<Pojo> pojoList = new ArrayList<Pojo>();
-    private ListView listView;
     private Context context;
+    private ListView listView;
 
     public DownloadTask(ListView listView,Context context){
-        this.context = context;
+       this.context = context;
         this.listView = listView;
     }
     @Override
@@ -82,17 +84,15 @@ public class DownloadTask extends AsyncTask<URL,Void,String> {
                 pojoList.add(pojo);
             }
 
-            fill();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Toast.makeText(context,"Done",Toast.LENGTH_SHORT).show();
+        fill();
+
     }
 
     public void fill(){
         CustomAdapter adapter = new CustomAdapter(context, R.layout.item, pojoList);
         listView.setAdapter(adapter);
     }
-
-
 }
